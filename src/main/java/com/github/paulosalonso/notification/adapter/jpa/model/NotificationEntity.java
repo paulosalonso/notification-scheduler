@@ -19,9 +19,12 @@ public class NotificationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
+    @Enumerated(EnumType.STRING)
     private Channel channel;
+
     private OffsetDateTime scheduleAt;
 
     @ElementCollection
@@ -29,5 +32,7 @@ public class NotificationEntity {
     private List<String> recipients;
 
     private String message;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
 }
