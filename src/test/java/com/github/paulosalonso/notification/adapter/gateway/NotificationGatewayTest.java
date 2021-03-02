@@ -95,4 +95,16 @@ public class NotificationGatewayTest {
                 .isExactlyInstanceOf(NotFoundException.class)
                 .hasMessage("Notification not found with id %s", id);
     }
+
+    @Test
+    public void givenAnUUIDWhenCheckIfIsSentThenCallPort() {
+        var id = UUID.randomUUID();
+
+        when(repository.isSent(id)).thenReturn(true);
+
+        var isSent = gateway.isSent(id);
+
+        assertThat(isSent).isTrue();
+        verify(repository).isSent(id);
+    }
 }
