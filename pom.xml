@@ -176,7 +176,7 @@
 					<mutationThreshold>${mutation.threshold}</mutationThreshold>
 					<skip>${skip.mutation}</skip>
 					<mutators>
-						<!-- DEFAULT LIST, WITHOUT NULL_RETURNS -->
+						<!-- DEFAULT LIST -->
 						<mutator>CONDITIONALS_BOUNDARY</mutator>
 						<mutator>INCREMENTS</mutator>
 						<mutator>INVERT_NEGS</mutator>
@@ -187,6 +187,7 @@
 						<mutator>FALSE_RETURNS</mutator>
 						<mutator>TRUE_RETURNS</mutator>
 						<mutator>PRIMITIVE_RETURNS</mutator>
+						<mutator>NULL_RETURNS</mutator>
 					</mutators>
 					<targetClasses>
 						<param>com.github.paulosalonso.notification.*</param>
