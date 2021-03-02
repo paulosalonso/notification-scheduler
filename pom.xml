@@ -190,6 +190,9 @@
 					<targetTests>
 						<param>com.github.paulosalonso.notification.*</param>
 					</targetTests>
+					<excludedClasses>
+						<param>**/application/**</param>
+					</excludedClasses>
 				</configuration>
 			</plugin>
 		</plugins>
