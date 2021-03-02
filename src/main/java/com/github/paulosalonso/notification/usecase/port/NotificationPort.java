@@ -8,4 +8,5 @@ public interface NotificationPort {
     Notification save(Notification notification);
     Notification read(UUID id);
     void delete(UUID id);
+    boolean isSent(UUID id);
 }
