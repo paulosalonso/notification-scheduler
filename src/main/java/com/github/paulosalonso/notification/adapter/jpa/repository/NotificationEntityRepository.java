@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface NotificationEntityRepository extends JpaRepository<NotificationEntity, UUID> {
 
-    @Query("SELECT count(n) > 0 FROM Notification n WHERE n.id = :id AND n.status = 'SENT'")
+    @Query("SELECT count(notification) > 0 FROM NotificationEntity notification WHERE notification.id = :id AND notification.status = 'SENT'")
     boolean isSent(UUID id);
 
 }
