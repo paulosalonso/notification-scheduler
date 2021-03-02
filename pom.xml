@@ -199,4 +199,14 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>mutation</id>
+			<properties>
+				<skip.unit.tests>true</skip.unit.tests>
+				<skip.it.tests>true</skip.it.tests>
+				<skip.mutation>false</skip.mutation>
+			</properties>
+		</profile>
+	</profiles>
 </project>
