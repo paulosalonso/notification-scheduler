@@ -100,13 +100,8 @@
 				<version>${jacoco.version}</version>
 				<configuration>
 					<excludes>
-						<exclude>**/ResearchApplication.*</exclude>
-						<exclude>**/OpenApiConfiguration.*</exclude>
-						<exclude>**/jwtconverter/**</exclude>
-						<exclude>**/jwtdecoder/**</exclude>
-						<exclude>**/SecurityInfo.*</exclude>
-						<exclude>**/Claims.*</exclude>
-						<exclude>**/TenantNotProvidedException.*</exclude>
+						<exclude>**/NotificationSchedulerApplication.*</exclude>
+						<exclude>**/domain/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
