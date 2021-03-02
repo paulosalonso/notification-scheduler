@@ -1,4 +1,4 @@
-package com.github.paulosalonso.notification.usecase.port;
+package com.github.paulosalonso.notification.usecase.exception;
 
 import com.github.paulosalonso.notification.domain.Channel;
 
