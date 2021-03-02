@@ -3,7 +3,7 @@ package com.github.paulosalonso.notification.usecase;
 import com.github.paulosalonso.notification.domain.Channel;
 import com.github.paulosalonso.notification.domain.Notification;
 import com.github.paulosalonso.notification.domain.Status;
-import com.github.paulosalonso.notification.usecase.port.NoSuchNotifierException;
+import com.github.paulosalonso.notification.usecase.exception.NoSuchNotifierException;
 import com.github.paulosalonso.notification.usecase.port.NotificationPort;
 import com.github.paulosalonso.notification.usecase.port.NotifierPort;
 import org.junit.jupiter.api.BeforeEach;

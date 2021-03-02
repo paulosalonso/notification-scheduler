@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public interface NotificationPort {
     Notification save(Notification notification);
-    Notification read(UUID uuid);
-    void delete(UUID notification);
+    Notification read(UUID id);
+    void delete(UUID id);
 }
