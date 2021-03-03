@@ -1,16 +1,14 @@
 package com.github.paulosalonso.notification.adapter.api.controller;
 
+import com.github.paulosalonso.notification.adapter.api.BaseIT;
 import com.github.paulosalonso.notification.adapter.api.dto.NotificationCreateDTO;
 import com.github.paulosalonso.notification.adapter.jpa.repository.NotificationEntityRepository;
-import com.github.paulosalonso.notification.application.NotificationSchedulerApplication;
 import com.github.paulosalonso.notification.domain.Channel;
 import com.github.paulosalonso.notification.domain.Status;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -21,13 +19,8 @@ import static io.restassured.RestAssured.*;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasKey;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT, classes = NotificationSchedulerApplication.class)
-public class NotificationControllerIT {
-
-    @LocalServerPort
-    private int port;
+public class NotificationControllerIT extends BaseIT {
 
     @Autowired
     private NotificationEntityRepository repository;
@@ -179,16 +172,6 @@ public class NotificationControllerIT {
     }
 
     @Test
-    public void givenAInvalidUUIDWhenGetThenReturnBadRequest() {
-        get("/notifications/{id}", "invalid-uuid")
-                .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
-                .body("status", equalTo(HttpStatus.BAD_REQUEST.value()))
-                .body("message", equalTo("'invalid-uuid' is an invalid value for the 'id' URL parameter. Required type is 'UUID'."))
-                .body("$", not(hasKey("fields")));
-    }
-
-    @Test
     public void givenAExistentUUIDWhenDeleteThenReturnNoContent() {
         String id = createNotification();
 
@@ -224,16 +207,6 @@ public class NotificationControllerIT {
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body("status", equalTo(HttpStatus.NOT_FOUND.value()))
                 .body("message", equalTo(String.format("Notification not found with id %s", id)))
-                .body("$", not(hasKey("fields")));
-    }
-
-    @Test
-    public void givenAInvalidUUIDWhenDeleteThenReturnBadRequest() {
-        get("/notifications/{id}", "invalid-uuid")
-                .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
-                .body("status", equalTo(HttpStatus.BAD_REQUEST.value()))
-                .body("message", equalTo("'invalid-uuid' is an invalid value for the 'id' URL parameter. Required type is 'UUID'."))
                 .body("$", not(hasKey("fields")));
     }
 
