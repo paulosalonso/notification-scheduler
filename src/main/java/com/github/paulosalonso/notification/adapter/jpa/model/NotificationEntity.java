@@ -15,6 +15,7 @@ import java.util.UUID;
 @Setter
 @Builder
 @Entity
+@Table(name = "notification")
 public class NotificationEntity {
 
     @Id
@@ -28,7 +29,8 @@ public class NotificationEntity {
     private OffsetDateTime scheduleAt;
 
     @ElementCollection
-    @CollectionTable(name = "notification_recipients")
+    @CollectionTable(name = "recipient", joinColumns = @JoinColumn(name = "notification_id"))
+    @Column(name = "recipient")
     private List<String> recipients;
 
     private String message;
