@@ -20,9 +20,9 @@
 		<skip.it.tests>false</skip.it.tests>
 		<skip.mutation>true</skip.mutation>
 
-		<line.coverage>0.90</line.coverage>
-		<branch.coverage>0.90</branch.coverage>
-		<mutation.threshold>90</mutation.threshold>
+		<line.coverage>1.00</line.coverage>
+		<branch.coverage>1.00</branch.coverage>
+		<mutation.threshold>100</mutation.threshold>
 
 		<jacoco.version>0.8.5</jacoco.version>
 		<pitest.version>1.5.2</pitest.version>
