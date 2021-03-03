@@ -27,6 +27,7 @@
 		<jacoco.version>0.8.5</jacoco.version>
 		<pitest.version>1.5.2</pitest.version>
 		<pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
+		<testcontainers.version>1.15.2</testcontainers.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,10 +38,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -48,9 +52,21 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mysql</artifactId>
+			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -185,13 +201,15 @@
 						<mutator>NULL_RETURNS</mutator>
 					</mutators>
 					<targetClasses>
-						<param>com.github.paulosalonso.notification.*</param>
+						<param>com.github.paulosalonso.notification.**</param>
 					</targetClasses>
 					<targetTests>
-						<param>com.github.paulosalonso.notification.*</param>
+						<param>com.github.paulosalonso.notification.**</param>
 					</targetTests>
 					<excludedClasses>
-						<param>**/application/**</param>
+						<param>**.application.**</param>
+						<param>**.adapter.api.controller.**</param>
+						<param>**.adapter.api.exceptionhandler.**</param>
 					</excludedClasses>
 				</configuration>
 			</plugin>
