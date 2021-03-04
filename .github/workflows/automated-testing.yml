@@ -1,6 +1,9 @@
 name: Automated Testing
 
-on:  [ push ]
+on:
+  push:
+    branches-ignore:
+      - release-candidate-*
 
 jobs:
   tests:
