@@ -32,19 +32,18 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Extracting branch name
-        run: echo "VERSION=$(git rev-parse --abbrev-ref HEAD)-RC" >> $GITHUB_ENV
+        run: echo "VERSION=$(git rev-parse --abbrev-ref HEAD | cut -c19-30)-SNAPSHOT" >> $GITHUB_ENV
 
       - name: Updating project version in pom.xml with branch-name
         run: |
           echo Version: ${VERSION}
-          echo env Version: ${{ env.VERSION }}
           mvn release:update-versions -DdevelopmentVersion=${VERSION}
 
       - name: Building package with Maven
         run: mvn -B verify package
 
       - name: Moving artifact to staging folder
-        run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}.jar staging
+        run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}-${VERSION}.jar staging
 
       - name: Uploading artifact
         uses: actions/upload-artifact@v1
@@ -61,4 +60,4 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ env.HEROKU_APPLICATION_NAME }}
-        run: heroku plugins:install java && heroku create --no-remote && heroku deploy:jar staging/${{ env.APPLICATION_NAME }}.jar --app ${{ env.HEROKU_APPLICATION_NAME }}
+        run: heroku plugins:install java && heroku create --no-remote && heroku deploy:jar staging/${{ env.APPLICATION_NAME }}-${VERSION}.jar --app ${{ env.HEROKU_APPLICATION_NAME }}
