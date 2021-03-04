@@ -1,5 +1,6 @@
 package com.github.paulosalonso.notification.adapter.api.documentation;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,9 @@ import static org.springframework.http.HttpStatus.*;
 @EnableOpenApi
 public class OpenApiConfiguration implements WebMvcConfigurer {
 
+    @Value("${build.version}")
+    private String buildVersion;
+
     @Bean
     public Docket docket() {
         Docket docket = new Docket(DocumentationType.OAS_30)
@@ -57,7 +61,7 @@ public class OpenApiConfiguration implements WebMvcConfigurer {
         return new ApiInfoBuilder()
                 .title("Notification Scheduler API")
                 .description("Schedule notifications for future shipping")
-                .version("0.0.1-SNAPSHOT")
+                .version(buildVersion)
                 .contact(new Contact("Paulo Alonso",
                         "https://www.linkedin.com/in/paulo-alonso-67b082149/", "paulo_alonso_@hotmail.com"))
                 .build();
