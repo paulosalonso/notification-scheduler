@@ -218,6 +218,7 @@
 					<excludedClasses>
 						<param>**.application.**</param>
 						<param>**.adapter.api.controller.**</param>
+						<param>**.adapter.api.documentation.**</param>
 						<param>**.adapter.api.exceptionhandler.**</param>
 					</excludedClasses>
 				</configuration>
