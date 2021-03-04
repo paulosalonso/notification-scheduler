@@ -17,6 +17,5 @@ public class BaseIT {
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 }
