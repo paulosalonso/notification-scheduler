@@ -24,6 +24,7 @@
 		<branch.coverage>1.00</branch.coverage>
 		<mutation.threshold>100</mutation.threshold>
 
+		<springfox.version>3.0.0</springfox.version>
 		<jacoco.version>0.8.5</jacoco.version>
 		<pitest.version>1.5.2</pitest.version>
 		<pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
@@ -54,6 +55,11 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>${springfox.version}</version>
 		</dependency>
 
 		<dependency>
