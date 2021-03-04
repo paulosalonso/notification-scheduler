@@ -5,8 +5,6 @@ import com.github.paulosalonso.notification.adapter.api.dto.NotificationCreateDT
 import com.github.paulosalonso.notification.adapter.jpa.repository.NotificationEntityRepository;
 import com.github.paulosalonso.notification.domain.Channel;
 import com.github.paulosalonso.notification.domain.Status;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +22,6 @@ public class NotificationControllerIT extends BaseIT {
 
     @Autowired
     private NotificationEntityRepository repository;
-
-    @BeforeEach
-    void setUp() {
-        RestAssured.port = port;
-    }
 
     @Test
     public void givenAValidNotificationWhenPostThenReturnCreated() {
