@@ -31,10 +31,10 @@ jobs:
       - name: Extracting tag
         run: |
             echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-            echo Version: ${ VERSION }
+            echo Version: ${VERSION}
 
       - name: Updating project version in pom.xml
-        run: mvn release:update-versions -DdevelopmentVersion=${ VERSION }
+        run: mvn release:update-versions -DdevelopmentVersion=${VERSION}
 
       - name: Building package with Maven
         run: mvn -B package -Pdocker-local -Pno-tests
@@ -52,7 +52,7 @@ jobs:
         run: mkdir tmp && cp .docker/Dockerfile tmp && cp target/${{ env.APPLICATION_NAME }}.jar tmp
 
       - name: Building Docker image
-        run: cd tmp && docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ env.APPLICATION_NAME }}:${ VERSION } .
+        run: cd tmp && docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ env.APPLICATION_NAME }}:${VERSION} .
 
       - name: Login on DockerHub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
