@@ -1,0 +1,62 @@
+name: Heroku CD
+
+env:
+  APPLICATION_NAME: psa-notification-scheduler
+
+on:
+  push:
+    branches:
+      - release-candidate-[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy application on Heroku
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Project checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Extracting branch name
+        run: |
+          echo "VERSION=$(git rev-parse --abbrev-ref HEAD | cut -c18-30)-RC" >> $GITHUB_ENV
+          echo Version: ${VERSION}
+
+      - name: Updating project version in pom.xml with branch-name
+        run: mvn release:update-versions -DdevelopmentVersion=${VERSION}
+
+      - name: Building package with Maven
+        run: mvn -B verify package
+
+      - name: Moving artifact to staging folder
+        run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}.jar staging
+
+      - name: Uploading artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: package
+          path: staging
+
+      - name: Login to Heroku Container registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login
+
+      - name: Build and push
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ env.APPLICATION_NAME }}
+        run: heroku plugins:install java && heroku create --no-remote && heroku deploy:jar staging/${{ env.APPLICATION_NAME }}.jar --app ${{ env.APPLICATION_NAME }}
