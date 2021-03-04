@@ -30,7 +30,7 @@ import static org.springframework.http.HttpStatus.*;
 @EnableOpenApi
 public class OpenApiConfiguration implements WebMvcConfigurer {
 
-    @Value("${build.version}")
+    @Value("${build.version:0.0.1-SNAPSHOT}")
     private String buildVersion;
 
     @Bean
