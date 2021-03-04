@@ -43,7 +43,7 @@ jobs:
         run: mvn -B verify package
 
       - name: Moving artifact to staging folder
-        run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}-${VERSION}.jar staging
+        run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}.jar staging
 
       - name: Uploading artifact
         uses: actions/upload-artifact@v1
@@ -60,4 +60,4 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ env.HEROKU_APPLICATION_NAME }}
-        run: heroku plugins:install java && heroku create --no-remote && heroku deploy:jar staging/${{ env.APPLICATION_NAME }}-${VERSION}.jar --app ${{ env.HEROKU_APPLICATION_NAME }}
+        run: heroku plugins:install java && heroku create --no-remote && heroku deploy:jar staging/${{ env.APPLICATION_NAME }}.jar --app ${{ env.HEROKU_APPLICATION_NAME }}

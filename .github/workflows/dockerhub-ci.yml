@@ -40,7 +40,7 @@ jobs:
         run: mvn -B package -DskipTests
 
       - name: Moving artifact to staging folder
-        run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}-${VERSION}.jar staging
+        run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}.jar staging
 
       - name: Uploading artifact
         uses: actions/upload-artifact@v1
@@ -49,7 +49,7 @@ jobs:
           path: staging
 
       - name: Preparing Docker build
-        run: mkdir tmp && cp .docker/Dockerfile tmp && cp target/${{ env.APPLICATION_NAME }}-${VERSION}.jar tmp
+        run: mkdir tmp && cp .docker/Dockerfile tmp && cp target/${{ env.APPLICATION_NAME }}.jar tmp
 
       - name: Building Docker image
         run: cd tmp && docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ env.APPLICATION_NAME }}:${VERSION} .

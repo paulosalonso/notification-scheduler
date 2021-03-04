@@ -1,1 +1,1 @@
-JAVA_TOOL_OPTIONS: -Dserver.port=$PORT
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar staging/notification-scheduler.jar $JAR_OPTS
