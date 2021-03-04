@@ -4,6 +4,7 @@ import com.github.paulosalonso.notification.adapter.api.exceptionhandler.Error.F
 import com.github.paulosalonso.notification.usecase.exception.NonDeletableStatusException;
 import com.github.paulosalonso.notification.usecase.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +19,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @RequiredArgsConstructor
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     private final MessageSource messageSource;
+
+    @ExceptionHandler
+    public ResponseEntity handleUncaught(Exception e, WebRequest request) {
+        var status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        var error = Error.builder()
+                .status(status.value())
+                .message("Internal server error. Contact your administrator.")
+                .build();
+
+        log.error("Uncaught error", e);
+
+        return handleExceptionInternal(e, error, new HttpHeaders(), status, request);
+    }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity handleNotFoundException(NotFoundException e, WebRequest request) {
