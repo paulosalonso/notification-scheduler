@@ -7,7 +7,7 @@ O canal de comunicação também é definido pelo cliente ao enviar a requisiç�
 
 ## Arquitetura
 
-O projeto foi construído utilizando [Clean Arch](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+O projeto foi construído baseado no conceito de  [Arquitetura Limpa](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
 ## Qualidade
 [![Automated Testing](https://github.com/paulosalonso/notification-scheduler/actions/workflows/automated-testing.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/automated-testing.yml)
