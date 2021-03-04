@@ -1,15 +1,15 @@
 package com.github.paulosalonso.notification.adapter.api.mapper;
 
 import com.github.paulosalonso.notification.adapter.api.dto.NotificationCreateDTO;
-import com.github.paulosalonso.notification.adapter.api.dto.NotificationDTO;
+import com.github.paulosalonso.notification.adapter.api.dto.NotificationStatusDTO;
 import com.github.paulosalonso.notification.domain.Notification;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationDTOMapper {
 
-    public NotificationDTO toDTO(Notification notification) {
-        return NotificationDTO.builder()
+    public NotificationStatusDTO toDTO(Notification notification) {
+        return NotificationStatusDTO.builder()
                 .id(notification.getId())
                 .status(notification.getStatus())
                 .build();
