@@ -29,12 +29,12 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Extracting tag
-        run: |
-            echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-            echo Version: ${VERSION}
+        run: echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Updating project version in pom.xml
-        run: mvn release:update-versions -DdevelopmentVersion=${VERSION}
+        run: |
+          echo Version: ${VERSION}
+          mvn release:update-versions -DdevelopmentVersion=${VERSION}
 
       - name: Building package with Maven
         run: mvn -B package -DskipTests
