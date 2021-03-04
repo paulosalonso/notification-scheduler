@@ -32,12 +32,13 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Extracting branch name
-        run: |
-          echo "VERSION=$(git rev-parse --abbrev-ref HEAD)-RC" >> $GITHUB_ENV
-          echo Version: ${VERSION}
+        run: echo "VERSION=$(git rev-parse --abbrev-ref HEAD)-RC" >> $GITHUB_ENV
 
       - name: Updating project version in pom.xml with branch-name
-        run: mvn release:update-versions -DdevelopmentVersion=${VERSION}
+        run: |
+          echo Version: ${VERSION}
+          echo env Version: ${{ env.VERSION }}
+          mvn release:update-versions -DdevelopmentVersion=${VERSION}
 
       - name: Building package with Maven
         run: mvn -B verify package
