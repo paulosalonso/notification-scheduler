@@ -64,7 +64,7 @@ A API é documentada utilizando [OpenAPI](https://swagger.io/specification/) e p
 
 ## Execução
 
-Veremos algumas formas para executar a aplicação. Para todas elas é importante observar a cofiguração das variáveis de ambiente citadas anteriormente.
+Veremos algumas formas para executar a aplicação. Para todas elas é importante observar a configuração da conexão com o banco de dados.
 
 ### IDE
 
@@ -80,7 +80,7 @@ Para executar a aplicação na IDE basta importar o projeto e executar a classe 
 
 ### Docker
 
-Para rodar um container Docker da aplicação a partir de uma [imagem do Docker Hub](https://hub.docker.com/repository/docker/paulosalonso/notification-scheduler), acesse o diretório __.docker__ e rode o comando abaixo:
+Para rodar um container Docker da aplicação a partir da última versão disponível da [imagem no Docker Hub](https://hub.docker.com/repository/docker/paulosalonso/notification-scheduler), acesse o diretório __.docker__ e rode o comando abaixo:
 
 > docker-compose up
 
