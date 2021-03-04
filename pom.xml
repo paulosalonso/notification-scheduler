@@ -16,9 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 
-		<skip.unit.tests>false</skip.unit.tests>
-		<skip.it.tests>false</skip.it.tests>
-		<skip.mutation>true</skip.mutation>
+		<skipMutation>true</skipMutation>
 
 		<line.coverage>1.00</line.coverage>
 		<branch.coverage>1.00</branch.coverage>
@@ -93,8 +91,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
-					<skipTests>${skip.unit.tests}</skipTests>
-					<skipTests>${skipTests}</skipTests>
 					<argLine> ${argLine} --illegal-access=permit </argLine>
 				</configuration>
 			</plugin>
@@ -113,8 +109,6 @@
 						</goals>
 						<configuration>
 							<classesDirectory>${project.build.outputDirectory}</classesDirectory>
-							<skipTests>${skip.it.tests}</skipTests>
-							<skipTests>${skipTests}</skipTests>
 						</configuration>
 					</execution>
 				</executions>
@@ -148,8 +142,6 @@
 							<goal>check</goal>
 						</goals>
 						<configuration>
-							<skip>${skip.unit.tests}</skip>
-							<skip>${skip.it.tests}</skip>
 							<skip>${skipTests}</skip>
 							<rules>
 								<rule>
@@ -194,7 +186,7 @@
 				</executions>
 				<configuration>
 					<mutationThreshold>${mutation.threshold}</mutationThreshold>
-					<skip>${skip.mutation}</skip>
+					<skip>${skipMutation}</skip>
 					<mutators>
 						<!-- DEFAULT LIST -->
 						<mutator>CONDITIONALS_BOUNDARY</mutator>
@@ -230,9 +222,8 @@
 		<profile>
 			<id>mutation</id>
 			<properties>
-				<skip.unit.tests>true</skip.unit.tests>
-				<skip.it.tests>true</skip.it.tests>
-				<skip.mutation>false</skip.mutation>
+				<skipTests>true</skipTests>
+				<skipMutation>false</skipMutation>
 			</properties>
 		</profile>
 	</profiles>

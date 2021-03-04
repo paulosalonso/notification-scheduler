@@ -24,4 +24,4 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run unit and integrated tests
-        run: mvn -B verify --file pom.xml -Dskip.mutation
+        run: mvn -B verify --file pom.xml -DskipMutation

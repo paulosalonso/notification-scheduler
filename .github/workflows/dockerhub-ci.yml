@@ -37,7 +37,7 @@ jobs:
         run: mvn release:update-versions -DdevelopmentVersion=${VERSION}
 
       - name: Building package with Maven
-        run: mvn -B package -Pdocker-local -Pno-tests
+        run: mvn -B package -DskipTests
 
       - name: Moving artifact to staging folder
         run: mkdir staging && cp target/${{ env.APPLICATION_NAME }}.jar staging
