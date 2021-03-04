@@ -1,7 +1,8 @@
 name: Heroku CD
 
 env:
-  APPLICATION_NAME: psa-notification-scheduler
+  APPLICATION_NAME: notification-scheduler
+  HEROKU_APPLICATION_NAME: psa-notification-scheduler
 
 on:
   push:
@@ -32,7 +33,7 @@ jobs:
 
       - name: Extracting branch name
         run: |
-          echo "VERSION=$(git rev-parse --abbrev-ref HEAD | cut -c18-30)-RC" >> $GITHUB_ENV
+          echo "VERSION=$(git rev-parse --abbrev-ref HEAD | cut -c19-30)-RC" >> $GITHUB_ENV
           echo Version: ${VERSION}
 
       - name: Updating project version in pom.xml with branch-name
@@ -58,5 +59,5 @@ jobs:
       - name: Build and push
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: ${{ env.APPLICATION_NAME }}
-        run: heroku plugins:install java && heroku create --no-remote && heroku deploy:jar staging/${{ env.APPLICATION_NAME }}.jar --app ${{ env.APPLICATION_NAME }}
+          HEROKU_APP_NAME: ${{ env.HEROKU_APPLICATION_NAME }}
+        run: heroku plugins:install java && heroku create --no-remote && heroku deploy:jar staging/${{ env.APPLICATION_NAME }}.jar --app ${{ env.HEROKU_APPLICATION_NAME }}
