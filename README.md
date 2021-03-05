@@ -106,8 +106,8 @@ Para fazer a autenticação é utilizado o [Keycloak](https://www.keycloak.org/)
 Importe a coleção e os ambientes do postman presentes no projeto para consumir a API. 
 Há requisições com e sem autenticação. Também há a requisição para obtenção do token no Keycloak local (Docker).
 
-[Collection](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler.postman_collection.json)
-[Local Environment](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler%20-%20Local.postman_environment.json)
+[Collection](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler.postman_collection.json)  
+[Local Environment](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler%20-%20Local.postman_environment.json)  
 [Heroku Environment](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler%20-%20Heroku.postman_environment.json)
 
 ### Swagger
