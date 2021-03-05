@@ -114,7 +114,7 @@ Há requisições com e sem autenticação. Também há a requisição para obte
 
 Também é possível consumir a API via Swagger.
 
-[Swagger local](http://localhost:8080/swager-ui/index.html)  
+Swagger local: http://localhost:8080/swager-ui/index.html  
 [Swagger no Heroku](https://psa-notification-scheduler.herokuapp.com/swager-ui/index.html)
 
 ## Observabilidade
@@ -144,5 +144,5 @@ A cada release é criada uma imagem Docker da versão no Docker Hub (paulosalons
 
 [![Heroku CD](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml)
 
-Para realizar um deploy no Heroku basta criar uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).
+Para realizar um deploy no Heroku basta criar uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).  
 URL da aplicação: __https://psa-notification-scheduler.herokuapp.com__
