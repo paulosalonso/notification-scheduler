@@ -1,8 +1,9 @@
-package com.github.paulosalonso.notification.adapter.api.documentation;
+package com.github.paulosalonso.notification.application.documentation;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,11 +13,9 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.oas.annotations.EnableOpenApi;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.Response;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.List;
@@ -25,10 +24,11 @@ import static java.util.function.Predicate.not;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpStatus.*;
 
+@Profile("secure-api")
 @Configuration
 @EnableWebMvc
 @EnableOpenApi
-public class OpenApiConfiguration implements WebMvcConfigurer {
+public class SecureOpenApiConfiguration implements WebMvcConfigurer {
 
     @Value("${build.version:0.0.1-SNAPSHOT}")
     private String buildVersion;
@@ -46,7 +46,9 @@ public class OpenApiConfiguration implements WebMvcConfigurer {
                 .globalResponses(POST, globalPostPutResponseMessages())
                 .globalResponses(PUT, globalPostPutResponseMessages())
                 .useDefaultResponseMessages(false)
-                .apiInfo(buildApiInfo());
+                .apiInfo(buildApiInfo())
+                .securitySchemes(List.of(apiKey()))
+                .securityContexts(List.of(buildSecurityContext()));
 
         addTags(docket);
 
@@ -70,6 +72,10 @@ public class OpenApiConfiguration implements WebMvcConfigurer {
     private List<Response> globalPostPutResponseMessages() {
         return List.of(
                 new ResponseBuilder()
+                        .code(getHttpStatus(UNAUTHORIZED))
+                        .description("Unauthorized")
+                        .build(),
+                new ResponseBuilder()
                         .code(getHttpStatus(NOT_ACCEPTABLE))
                         .description("Resource has no representation that could be accepted by the consumer")
                         .build(),
@@ -84,7 +90,12 @@ public class OpenApiConfiguration implements WebMvcConfigurer {
     }
 
     private List<Response> globalGetDeleteResponseMessages() {
-        return List.of(new ResponseBuilder()
+        return List.of(
+                new ResponseBuilder()
+                        .code(getHttpStatus(UNAUTHORIZED))
+                        .description("Unauthorized")
+                        .build(),
+                new ResponseBuilder()
                         .code(getHttpStatus(INTERNAL_SERVER_ERROR))
                         .description("Internal server error")
                         .build());
@@ -92,6 +103,24 @@ public class OpenApiConfiguration implements WebMvcConfigurer {
 
     private String getHttpStatus(HttpStatus status) {
         return Integer.toString(status.value());
+    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("Authorization", "Authorization", "header");
+    }
+
+    private SecurityContext buildSecurityContext() {
+        return SecurityContext.builder()
+                .securityReferences(buildSecurityReference())
+                .operationSelector(operationContext -> true)
+                .build();
+    }
+
+    private List<SecurityReference> buildSecurityReference() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("*", "Full access");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return List.of(new SecurityReference("Authorization", authorizationScopes));
     }
 
 }
