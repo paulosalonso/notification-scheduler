@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:8.0.23
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - volume=./volume
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 60s
+      retries: 10
+
+  notification-scheduler:
+    image: paulosalonso/notification-scheduler
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/notification?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      SPRING_PROFILES_ACTIVE: secure-api
+      SECURITY_JWT_SIGNATURE_SECRET: 8cda22cb-27a0-4afb-a594-4dbb0e9adf6f
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:12.0.2
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_USER: root
+      DB_PASSWORD: mysql
+      DB_DATABASE: keycloak
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/notification-scheduler-realm.json
+    ports:
+      - 8050:8080
+    volumes:
+      - ./keycloak/notification-scheduler-realm.json:/opt/jboss/keycloak/imports/notification-scheduler-realm.json
+    depends_on:
+      mysql:
+        condition: service_healthy
