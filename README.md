@@ -99,6 +99,24 @@ Para fazer a autenticação é utilizado o [Keycloak](https://www.keycloak.org/)
 > --data-urlencode 'password=123456' \\ \
 > --data-urlencode 'client_id=openapi'
 
+## Consumo
+
+### Postman
+
+Importe a coleção e os ambientes do postman presentes no projeto para consumir a API. 
+Há requisições com e sem autenticação. Também há a requisição para obtenção do token no Keycloak local (Docker).
+
+[Collection](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler.postman_collection.json)
+[Local Environment](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler%20-%20Local.postman_environment.json)
+[Heroku Environment](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler%20-%20Heroku.postman_environment.json)
+
+### Swagger
+
+Também é possível consumir a API via Swagger.
+
+[Swagger local](http://localhost:8080/swager-ui/index.html)
+[Swagger no Heroku](https://psa-notification-scheduler.herokuapp.com/swager-ui/index.html)
+
 ## Observabilidade
 
 ### Logs
