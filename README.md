@@ -35,23 +35,25 @@ O root path da API é __/__
 
 A API é documentada utilizando [OpenAPI](https://swagger.io/specification/) e pode ser acessada via navegador através do path __/swagger-ui/index.html__
 
-[comment]: <> (### Segurança)
+### Segurança
 
-[comment]: <> (A API é protegida via autenticação com OAuth2. A autenticação deve ser feita com um Bearer Token &#40;JWT&#41;.)
+Por padrão a API é totalmente aberta. 
 
-[comment]: <> (#### JWT + Secret Key)
+Ativando o profile "secure-api" a API passa a ser protegida por autenticação via JWT. Para ativar o profile é necessária a variável de ambiente abaixo:
 
-[comment]: <> (O profile padrão &#40;default&#41; espera por uma secret via variável de ambiente &#40;SECURITY_JWT_SIGNATURE_SECRET&#41; para decodificar o token.)
+> SPRING_PROFILES_ACTIVE=secure-api
 
-[comment]: <> (Nesse caso o algoritmo utilizado por padrão é o HmacSHA256, que também pode ser customizado via variável de ambiente &#40;SECURITY_JWT_SIGNATURE_ALGORITHM&#41;.)
+Para verificar a validade do token é necessário informar a chave secreta utilizada para assinar o JWT. Ela deve ser configurada através da variável de ambiente abaixo:
 
-[comment]: <> (#### JWT + JWK)
+> SECURITY_JWT_SIGNATURE_SECRET=<my-secret>
 
-[comment]: <> (O profile "jwk" habilita a utlização de JWK &#40;JSON Web Key&#41; para decodificação do token. Nesse caso deve ser informada a URI para obtenção da chave pública via variável de ambiente &#40;SECURITY_JWT_SIGNATURE_JWK-SET-URI&#41;.)
+O algoritmo utilizado por padrão é o HmacSHA256 e pode ser customizado através da variável de ambiente abaixo:
+
+> SECURITY_JWT_SIGNATURE_ALGORITHM=<custom-algorithm>
 
 ## Execução
 
-Veremos algumas formas para executar a aplicação. Para todas elas é importante observar a configuração da conexão com o banco de dados.
+Veremos algumas formas para executar a aplicação. Para todas elas é importante observar as configurações via variável de ambiente.
 
 ### IDE
 
@@ -69,51 +71,33 @@ Para executar a aplicação na IDE basta importar o projeto e executar a classe 
 
 Para rodar um container Docker da aplicação a partir da última versão disponível da [imagem no Docker Hub](https://hub.docker.com/repository/docker/paulosalonso/notification-scheduler), acesse o diretório __.docker__ e rode o comando abaixo:
 
-> docker-compose up
+> docker-compose up -d
 
-[comment]: <> (### Segurança)
+#### Segurança
 
-[comment]: <> (Ao rodar a aplicação através do docker-compose disponibilizado no projeto, um container do Keycloak será executado também. O Keycloak já é iniciado com o realm "researh", o client "openapi" e secret "01a13864-0d17-441a-8721-a222bcf17842", e os usuários "adm" com a senha "123456" e "user" com a senha "123456".)
+O docker-compose padrão não ativa a segurança da API. Para subir a API protegida, use o comando abaixo:
 
-[comment]: <> (No diretório .postman há uma coleção com requests de autenticação, para criação de pesquisa e para responder uma pesquisa.)
+> docker-compose -f docker-compose-secure-api.yml up -d
 
-[comment]: <> (Também é possível obter os tokens com os comandos curl abaixo:)
+##### Authorization Server
 
-[comment]: <> (#### Admin token)
+Para fazer a autenticação é utilizado o [Keycloak](https://www.keycloak.org/). Um container será executado e já é iniciado com as seguintes configurações:
 
-[comment]: <> (> curl --location --request POST 'http://localhost:8050/auth/realms/research/protocol/openid-connect/token' \)
+* realm: notification-scheduler
+* client: openapi
+* client secret: 8cda22cb-27a0-4afb-a594-4dbb0e9adf6f
+* usuário: adm
+* senha: 123456
 
-[comment]: <> (> --header 'Authorization: Basic b3BlbmFwaTo4Y2RhMjJjYi0yN2EwLTRhZmItYTU5NC00ZGJiMGU5YWRmNmY=' \)
+É possível obter um token com o comando curl abaixo:
 
-[comment]: <> (> --header 'Content-Type: application/x-www-form-urlencoded' \)
-
-[comment]: <> (> --data-urlencode 'grant_type=password' \)
-
-[comment]: <> (> --data-urlencode 'username=adm' \)
-
-[comment]: <> (> --data-urlencode 'password=123456' \)
-
-[comment]: <> (> --data-urlencode 'client_id=openapi')
-
-[comment]: <> (Este usuário contém a authority "ADMIN" e pode realizar todas as operações: cadastrar e buscar pesquisas, cadastrar respostas e ver o resumo da pesquisa.)
-
-[comment]: <> (#### User token)
-
-[comment]: <> (> curl --location --request POST 'http://localhost:8050/auth/realms/research/protocol/openid-connect/token' \)
-
-[comment]: <> (> --header 'Authorization: Basic b3BlbmFwaTowMWExMzg2NC0wZDE3LTQ0MWEtODcyMS1hMjIyYmNmMTc4NDI=' \)
-
-[comment]: <> (> --header 'Content-Type: application/x-www-form-urlencoded' \)
-
-[comment]: <> (> --data-urlencode 'grant_type=password' \)
-
-[comment]: <> (> --data-urlencode 'username=user' \)
-
-[comment]: <> (> --data-urlencode 'password=123456' \)
-
-[comment]: <> (> --data-urlencode 'client_id=openapi')
-
-[comment]: <> (Este usuário não contém nenhuma authority e pode buscar pesquisas, cadastrar respostas e ver o resumo de respostas da pesquisa.)
+> curl --location --request POST 'http://localhost:8050/auth/realms/notification-scheduler/protocol/openid-connect/token' \\ \
+> --header 'Authorization: Basic b3BlbmFwaTo4Y2RhMjJjYi0yN2EwLTRhZmItYTU5NC00ZGJiMGU5YWRmNmY=' \\ \
+> --header 'Content-Type: application/x-www-form-urlencoded' \\ \
+> --data-urlencode 'grant_type=password' \\ \
+> --data-urlencode 'username=adm' \\ \
+> --data-urlencode 'password=123456' \\ \
+> --data-urlencode 'client_id=openapi'
 
 ## Observabilidade
 

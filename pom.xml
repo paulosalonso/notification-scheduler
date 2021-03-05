@@ -59,6 +59,10 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>${springfox.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -119,7 +123,7 @@
 				<version>${jacoco.version}</version>
 				<configuration>
 					<excludes>
-						<exclude>**/NotificationSchedulerApplication.*</exclude>
+						<exclude>**/application/**</exclude>
 						<exclude>**/domain/**</exclude>
 					</excludes>
 				</configuration>
@@ -210,7 +214,6 @@
 					<excludedClasses>
 						<param>**.application.**</param>
 						<param>**.adapter.api.controller.**</param>
-						<param>**.adapter.api.documentation.**</param>
 						<param>**.adapter.api.exceptionhandler.**</param>
 					</excludedClasses>
 				</configuration>
