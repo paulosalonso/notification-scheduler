@@ -45,11 +45,11 @@ Ativando o profile "secure-api" a API passa a ser protegida por autenticação v
 
 Para verificar a validade do token é necessário informar a chave secreta utilizada para assinar o JWT. Ela deve ser configurada através da variável de ambiente abaixo:
 
-> SECURITY_JWT_SIGNATURE_SECRET=<my-secret>
+> SECURITY_JWT_SIGNATURE_SECRET=\<my-secret\>
 
 O algoritmo utilizado por padrão é o HmacSHA256 e pode ser customizado através da variável de ambiente abaixo:
 
-> SECURITY_JWT_SIGNATURE_ALGORITHM=<custom-algorithm>
+> SECURITY_JWT_SIGNATURE_ALGORITHM=\<signature-algorithm\>
 
 ## Execução
 
