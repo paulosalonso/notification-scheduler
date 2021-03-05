@@ -104,12 +104,12 @@ Para fazer a autenticação é utilizado o [Keycloak](https://www.keycloak.org/)
 
 É possível obter um token com o comando curl abaixo:
 
-> curl --location --request POST 'http://localhost:8050/auth/realms/notification-scheduler/protocol/openid-connect/token' \\
-> --header 'Authorization: Basic b3BlbmFwaTo4Y2RhMjJjYi0yN2EwLTRhZmItYTU5NC00ZGJiMGU5YWRmNmY=' \\
-> --header 'Content-Type: application/x-www-form-urlencoded' \\
-> --data-urlencode 'grant_type=password' \\
-> --data-urlencode 'username=adm' \\
-> --data-urlencode 'password=123456' \\
+> curl --location --request POST 'http://localhost:8050/auth/realms/notification-scheduler/protocol/openid-connect/token' \\ \
+> --header 'Authorization: Basic b3BlbmFwaTo4Y2RhMjJjYi0yN2EwLTRhZmItYTU5NC00ZGJiMGU5YWRmNmY=' \\ \
+> --header 'Content-Type: application/x-www-form-urlencoded' \\ \
+> --data-urlencode 'grant_type=password' \\ \
+> --data-urlencode 'username=adm' \\ \
+> --data-urlencode 'password=123456' \\ \
 > --data-urlencode 'client_id=openapi'
 
 ## Observabilidade
