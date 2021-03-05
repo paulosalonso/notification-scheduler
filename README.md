@@ -17,19 +17,6 @@ O projeto foi construído baseado no conceito de  [Arquitetura Limpa](https://bl
 A qualidade da aplicação é garantida através dos testes unitários e integrados. Utiliza o [JaCoCo](https://www.jacoco.org/) para validação de cobertura mínima e o [PIT Mutation](https://pitest.org/) para testar mutações de código.
 Também é realizada uma análise estática com o [SonarCloud](https://sonarcloud.io/dashboard?id=paulosalonso_research).
 
-## Integração Contínua (CI)
-
-![Docker Hub CI](https://github.com/paulosalonso/research/workflows/Docker%20Hub%20CI/badge.svg)
-
-A cada entrega de código (push) os testes são executados e o novo código só é incorporado (merge) a branch main se os testes forem executados com sucesso.
-A cada release é criada uma imagem Docker da versão no Docker Hub (paulosalonso/notification-scheduler).
-
-## Entrega Contínua (CD)
-
-[![Heroku CD](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml)
-
-Para realizar um deploy no Heroku basta criar uma branch no padrão release-candidate-[0-9]+.[0-9]+.[0-9]+ (release-candidate-0.0.1, por exemplo)
-
 ## Banco de dados
 
 A aplicação utiliza o bando de dados MySQL, inclusive nos testes integrados utilizando [Test Containers](https://www.testcontainers.org/).
@@ -143,3 +130,17 @@ Os logs são gerenciados pelo [SLF4J](http://www.slf4j.org/), e utiliza o [Logba
 [comment]: <> (O docker-compose existente no projeto inclui o [Prometheus]&#40;https://prometheus.io/&#41; e o [Grafana]&#40;https://grafana.com/&#41;.)
 
 [comment]: <> (O Grafana é exposto na porta 3000 com usuário __admin__ e senha __123456__. Ao logar, será exibido um dashboard preconfigurado que consome os dados fornecidos pelo Actuator ao Prometheus.)
+
+## Integração Contínua (CI)
+
+![Docker Hub CI](https://github.com/paulosalonso/research/workflows/Docker%20Hub%20CI/badge.svg)
+
+A cada entrega de código (push) os testes são executados e o novo código só é incorporado (merge) a branch main se os testes forem executados com sucesso.
+A cada release é criada uma imagem Docker da versão no Docker Hub (paulosalonso/notification-scheduler).
+
+## Entrega Contínua (CD)
+
+[![Heroku CD](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml)
+
+Para realizar um deploy no Heroku basta criar uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).
+A documentação da api pode ser acessada através da url https://psa-notification-scheduler.herokuapp.com/swagger-ui/index.html
