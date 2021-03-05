@@ -23,9 +23,9 @@ A aplicação utiliza o bando de dados MySQL, inclusive nos testes integrados ut
 
 ### Configuração de conexão
 
-Para configurar a URL de conexão crie uma variável de ambiente chamada __spring.datasource.url__ com a string de conexão adequada. Exemplo:
+Para configurar a URL de conexão crie uma variável de ambiente como abaixo com a string de conexão adequada:
 
-> export spring.datasource.url=jdbc:mysql://192.168.0.100:3306/notification-scheduler
+> SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/notification
 
 ## API
 
@@ -145,4 +145,4 @@ A cada release é criada uma imagem Docker da versão no Docker Hub (paulosalons
 [![Heroku CD](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml)
 
 Para realizar um deploy no Heroku basta criar uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).  
-URL da aplicação: __https://psa-notification-scheduler.herokuapp.com__
+URL da aplicação: https://psa-notification-scheduler.herokuapp.com
