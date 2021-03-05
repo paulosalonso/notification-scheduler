@@ -2,7 +2,7 @@
 
 ## Sobre o projeto
 
-O projeto tem como propósito disponibilizar uma API através da qual seja possível enviar notificações em uma data/hora definida pelo cliente. A notificação pode ser entregue através de diferentes canais de comunicação: e-mail, sms, push e Whatsapp.
+O projeto tem como propósito disponibilizar uma API através da qual seja possível enviar notificações em uma data/hora definida pelo cliente. A notificação pode ser entregue através de diferentes canais de comunicação: e-mail, sms, push e Whatsapp.  
 O canal de comunicação também é definido pelo cliente ao enviar a requisição.
 
 ## Arquitetura
@@ -103,7 +103,7 @@ Para fazer a autenticação é utilizado o [Keycloak](https://www.keycloak.org/)
 
 ### Postman
 
-Importe a coleção e os ambientes do postman presentes no projeto para consumir a API. 
+Importe a coleção e os ambientes do postman presentes no projeto para consumir a API.  
 Há requisições com e sem autenticação. Também há a requisição para obtenção do token no Keycloak local (Docker).
 
 [Collection](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler.postman_collection.json)  
@@ -114,7 +114,7 @@ Há requisições com e sem autenticação. Também há a requisição para obte
 
 Também é possível consumir a API via Swagger.
 
-[Swagger local](http://localhost:8080/swager-ui/index.html)
+[Swagger local](http://localhost:8080/swager-ui/index.html)  
 [Swagger no Heroku](https://psa-notification-scheduler.herokuapp.com/swager-ui/index.html)
 
 ## Observabilidade
