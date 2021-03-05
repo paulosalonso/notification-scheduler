@@ -127,4 +127,4 @@ A cada release é criada uma imagem Docker da versão no Docker Hub (paulosalons
 [![Heroku CD](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml)
 
 Para realizar um deploy no Heroku basta criar uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).
-A documentação da api pode ser acessada através da url https://psa-notification-scheduler.herokuapp.com/swagger-ui/index.html
+URL da aplicação: __https://psa-notification-scheduler.herokuapp.com__
