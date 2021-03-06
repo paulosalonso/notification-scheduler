@@ -1,5 +1,6 @@
 package com.github.paulosalonso.notification.application.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,9 +11,14 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
-@Profile("secure-api")
+@Slf4j
+@Profile({ "secure-api", "secure-api-jwk" })
 @Configuration
 public class SecureResourceServerConfiguration extends WebSecurityConfigurerAdapter {
+
+    public SecureResourceServerConfiguration() {
+        log.info("Starting application with security");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
