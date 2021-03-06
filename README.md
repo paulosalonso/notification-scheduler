@@ -37,7 +37,7 @@ A API é documentada utilizando [OpenAPI](https://swagger.io/specification/) e p
 
 ### Segurança
 
-Por padrão a API é totalmente aberta. Existem dois profiles que ativam segurança via JWT:
+Por padrão a API é totalmente aberta. Existem dois profiles que ativam segurança via JWT: "secure-api" e "secure-api-jwk".
 
 #### JWT + Secret Key
 
