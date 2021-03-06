@@ -37,9 +37,12 @@ A API é documentada utilizando [OpenAPI](https://swagger.io/specification/) e p
 
 ### Segurança
 
-Por padrão a API é totalmente aberta. 
+Por padrão a API é totalmente aberta. Existem dois profiles que ativam segurança via JWT:
 
-Ativando o profile "secure-api" a API passa a ser protegida por autenticação via JWT. Para ativar o profile é necessária a variável de ambiente abaixo:
+#### JWT + Secret Key
+
+Ativando o profile "secure-api" a API passa a ser protegida por autenticação via JWT com assinatura simétrica via chave secreta.  
+Para ativar o profile é necessária a variável de ambiente abaixo:
 
 > SPRING_PROFILES_ACTIVE=secure-api
 
@@ -50,6 +53,17 @@ Para verificar a validade do token é necessário informar a chave secreta utili
 O algoritmo utilizado por padrão é o HmacSHA256 e pode ser customizado através da variável de ambiente abaixo:
 
 > SECURITY_JWT_SIGNATURE_ALGORITHM=\<signature-algorithm\>
+
+#### JWT + JWK
+
+Ativando o profile "secure-api-jwk" a api passa a ser protegida por autenticação via JWT com assinatura assimétrica (par de chaves pública/privada).
+Para ativar o profile é necessária a variável de ambiente abaixo:
+
+> SPRING_PROFILES_ACTIVE=secure-api-jwk
+
+Para verificar a validade do token é necessário informar a URI para obtenção das chaves públicas do authorization server (JWK). Ela deve ser configurada através da variável de ambiente abaixo:
+
+> SECURITY_JWT_SIGNATURE_JWK-SET-URI=\<jwk-set-uri\>
 
 ## Execução
 
@@ -104,7 +118,8 @@ Para fazer a autenticação é utilizado o [Keycloak](https://www.keycloak.org/)
 ### Postman
 
 Importe a coleção e os ambientes do postman presentes no projeto para consumir a API.  
-Há requisições com e sem autenticação. Também há a requisição para obtenção do token no Keycloak local (Docker).
+Há requisições com e sem autenticação. Também há a requisição para obtenção do token no Keycloak local (Docker).  
+O ambiente local é configurado de acordo com as configurações do docker-compose.
 
 [Collection](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler.postman_collection.json)  
 [Local Environment](https://github.com/paulosalonso/notification-scheduler/blob/main/.postman/Notification%20Scheduler%20-%20Local.postman_environment.json)  
@@ -114,8 +129,9 @@ Há requisições com e sem autenticação. Também há a requisição para obte
 
 Também é possível consumir a API via Swagger.
 
-Swagger local: http://localhost:8080/swager-ui/index.html  
-[Swagger no Heroku](https://psa-notification-scheduler.herokuapp.com/swager-ui/index.html)
+Swagger local (baseado no docker-compose): http://localhost:8080/swager-ui/index.html  
+[Swagger no Heroku - Homologação](https://notification-scheduler-hom.herokuapp.com/swager-ui/index.html)
+[Swagger no Heroku - Produção](https://notification-scheduler-prod.herokuapp.com/swager-ui/index.html)
 
 ## Observabilidade
 
@@ -135,14 +151,26 @@ Os logs são gerenciados pelo [SLF4J](http://www.slf4j.org/), e utiliza o [Logba
 
 ## Integração Contínua (CI)
 
+[![Automated Testing](https://github.com/paulosalonso/notification-scheduler/actions/workflows/automated-testing.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/automated-testing.yml)
+[![Mutation Testing](https://github.com/paulosalonso/notification-scheduler/actions/workflows/mutation-testing.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/mutation-testing.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulosalonso_notification-scheduler&metric=alert_status)](https://sonarcloud.io/dashboard?id=paulosalonso_notification-scheduler)
+
+A cada entrega de código (push) os testes são executados e a verificação estática de código é realizada.  
+O novo código só é incorporado (merge) a branch main se tudo for realizado com sucesso.
+
+## Entrega Contínua
+
 ![Docker Hub CI](https://github.com/paulosalonso/research/workflows/Docker%20Hub%20CI/badge.svg)
 
-A cada entrega de código (push) os testes são executados e o novo código só é incorporado (merge) a branch main se os testes forem executados com sucesso.
 A cada release é criada uma imagem Docker da versão no Docker Hub (paulosalonso/notification-scheduler).
 
-## Entrega Contínua (CD)
+## Deploy Contínuo
 
-[![Heroku CD](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-cd.yml)
+[![Heroku Homologation Environment Deploy](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-hom.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-hom.yml)
+[![Heroku Production Environment Deploy](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-prod.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-prod.yml)
 
-Para realizar um deploy no Heroku basta criar uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).  
-URL da aplicação: https://psa-notification-scheduler.herokuapp.com
+Para realizar um deploy no ambiente de homologação do Heroku basta criar uma pre-release ou uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).  
+O deploy no ambiente de produção do Heroku é realizado ao criar uma release.
+
+URL de homologação: https://notification-scheduler-hom.herokuapp.com
+URL de produção: https://notification-scheduler-prod.herokuapp.com
