@@ -162,7 +162,7 @@ O novo código só é incorporado (merge) a branch main se tudo for realizado co
 
 ![Docker Hub CI](https://github.com/paulosalonso/research/workflows/Docker%20Hub%20CI/badge.svg)
 
-A cada release é criada uma imagem Docker da versão no Docker Hub (paulosalonso/notification-scheduler).
+A cada release é criada uma imagem Docker da versão no [Docker Hub](https://hub.docker.com/repository/docker/paulosalonso/notification-scheduler).
 
 ## Deploy Contínuo
 
