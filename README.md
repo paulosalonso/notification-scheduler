@@ -130,7 +130,7 @@ O ambiente local é configurado de acordo com as configurações do docker-compo
 Também é possível consumir a API via Swagger.
 
 Swagger local (baseado no docker-compose): http://localhost:8080/swager-ui/index.html  
-[Swagger no Heroku - Homologação](https://notification-scheduler-hom.herokuapp.com/swager-ui/index.html)
+[Swagger no Heroku - Homologação](https://notification-scheduler-hom.herokuapp.com/swager-ui/index.html)  
 [Swagger no Heroku - Produção](https://notification-scheduler-prod.herokuapp.com/swager-ui/index.html)
 
 ## Observabilidade
