@@ -4,7 +4,7 @@
   "displayName": "Notification Scheduler",
   "displayNameHtml": "Notification Scheduler",
   "notBefore": 0,
-  "defaultSignatureAlgorithm": "HS256",
+  "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
   "refreshTokenMaxReuse": 0,
   "accessTokenLifespan": 3600,

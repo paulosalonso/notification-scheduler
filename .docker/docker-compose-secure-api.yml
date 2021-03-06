@@ -24,8 +24,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/notification?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: mysql
-      SPRING_PROFILES_ACTIVE: secure-api
-      SECURITY_JWT_SIGNATURE_SECRET: 8cda22cb-27a0-4afb-a594-4dbb0e9adf6f
+      SPRING_PROFILES_ACTIVE: secure-api-jwk
+      SECURITY_JWT_SIGNATURE_JWK-SET-URI: http://keycloak:8080/auth/realms/notification-scheduler/protocol/openid-connect/certs
     depends_on:
       mysql:
         condition: service_healthy
