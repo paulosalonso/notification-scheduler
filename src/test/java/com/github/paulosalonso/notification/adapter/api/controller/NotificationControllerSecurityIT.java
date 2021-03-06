@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -15,11 +14,10 @@ import java.util.UUID;
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 
-@TestPropertySource(properties = "security.jwt.signature.secret=85bc4f61-351e-44a9-a8d6-734342ee181b")
 @ActiveProfiles("secure-api")
 public class NotificationControllerSecurityIT extends BaseIT {
 
-    private final static String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjgwZDA0Y2E4LWQxMzMtNGRiYy05ZjhjLWNhOTVmZjQ1MDUyOCJ9.eyJleHAiOjE2MTQ5ODMyNzMsImlhdCI6MTYxNDk3OTY3MywidHlwIjoiQmVhcmVyIiwidXNlcm5hbWUiOiJhZG0ifQ.-4teCMqTqcNn6smIi2yGBUv-MYX5B3Lnb_qyPAZF44U";
+    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQxMDI0NDQ3OTksImlhdCI6MCwidHlwIjoiQmVhcmVyIiwidXNlcm5hbWUiOiJhZG0ifQ.BTzsLlO7JKYb3i_sQ6uwHLFwuktPJEUHSnetGNySkvc";
 
     @Test
     public void givenAValidTokenWhenCreateNotificationThenReturnCreated() {
