@@ -1,16 +1,13 @@
-name: Heroku Homologation Environment Deploy
+name: Heroku Production Environment Deploy
 
 env:
   APPLICATION_NAME: notification-scheduler
-  HEROKU_APPLICATION_NAME: notification-scheduler-hom
+  HEROKU_APPLICATION_NAME: notification-scheduler-prod
 
 on:
   release:
     types:
-      - prereleased
-  push:
-    branches:
-      - release-candidate-[0-9]+.[0-9]+.[0-9]+
+      - released
 
 jobs:
   build-and-deploy:
