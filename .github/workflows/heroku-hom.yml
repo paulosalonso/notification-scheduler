@@ -2,16 +2,19 @@ name: Heroku CD
 
 env:
   APPLICATION_NAME: notification-scheduler
-  HEROKU_APPLICATION_NAME: psa-notification-scheduler
+  HEROKU_APPLICATION_NAME: notification-scheduler-hom
 
 on:
+  release:
+    types:
+      - prereleased
   push:
     branches:
       - release-candidate-[0-9]+.[0-9]+.[0-9]+
 
 jobs:
   build-and-deploy:
-    name: Build and deploy application on Heroku
+    name: Build and deploy application on Heroku for homologation
 
     runs-on: ubuntu-latest
 

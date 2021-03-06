@@ -3,7 +3,7 @@ name: Docker Hub CI
 on:
   release:
     types:
-      - published
+      - released
 
 env:
   APPLICATION_NAME: notification-scheduler
