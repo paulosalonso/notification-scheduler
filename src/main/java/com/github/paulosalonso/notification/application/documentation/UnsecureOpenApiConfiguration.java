@@ -9,7 +9,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.oas.annotations.EnableOpenApi;
@@ -22,7 +21,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.List;
 
-import static java.util.function.Predicate.not;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpStatus.*;
 
@@ -40,8 +38,7 @@ public class UnsecureOpenApiConfiguration implements WebMvcConfigurer {
         Docket docket = new Docket(DocumentationType.OAS_30)
                 .ignoredParameterTypes(ServletWebRequest.class)
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any().and(not(PathSelectors.ant("/error"))))
+                .apis(RequestHandlerSelectors.basePackage("com.github.paulosalonso.notification.adapter.api"))
                 .build()
                 .globalResponses(GET, globalGetDeleteResponseMessages())
                 .globalResponses(DELETE, globalGetDeleteResponseMessages())
