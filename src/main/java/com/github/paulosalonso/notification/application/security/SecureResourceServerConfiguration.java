@@ -35,13 +35,16 @@ public class SecureResourceServerConfiguration extends WebSecurityConfigurerAdap
 
     @Override
     public void configure(WebSecurity web) {
-        permitAllForSwagger(web);
+        permitSwagger(web);
+        permitActuator(web);
     }
 
-    private void permitAllForSwagger(WebSecurity web) {
-        web.ignoring().antMatchers("/v3/api-docs",
-                "/swagger-ui/**",
-                "/swagger-resources/**");
+    private void permitSwagger(WebSecurity web) {
+        web.ignoring().antMatchers("/v3/api-docs", "/swagger-ui/**", "/swagger-resources/**");
+    }
+
+    private void permitActuator(WebSecurity web) {
+        web.ignoring().antMatchers("/actuator/info", "/actuator/health", "/actuator/prometheus");
     }
 
     private JwtAuthenticationConverter jwtAuthenticationConverter() {
