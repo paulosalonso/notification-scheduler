@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.paulosalonso</groupId>
 	<artifactId>notification-scheduler</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Notification Scheduler</name>
 	<description>Schedule notifications for future shipping</description>
 	<properties>

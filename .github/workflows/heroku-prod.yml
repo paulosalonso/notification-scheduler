@@ -31,14 +31,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Extracting tag
-        run: echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-
-      - name: Updating project version in pom.xml with branch-name
-        run: |
-          echo Version: ${VERSION}
-          mvn release:update-versions -DdevelopmentVersion=${VERSION}
-
       - name: Building package with Maven
         run: mvn -B verify package
 
