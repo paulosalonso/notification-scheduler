@@ -63,4 +63,4 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Publishing Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.APPLICATION_NAME }}:${VERSION}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.APPLICATION_NAME }}
