@@ -149,7 +149,7 @@ Os logs são gerenciados pelo [SLF4J](http://www.slf4j.org/), e utiliza o [Logba
 
 [comment]: <> (O Grafana é exposto na porta 3000 com usuário __admin__ e senha __123456__. Ao logar, será exibido um dashboard preconfigurado que consome os dados fornecidos pelo Actuator ao Prometheus.)
 
-## Integração Contínua (CI)
+## Integração Contínua
 
 [![Automated Testing](https://github.com/paulosalonso/notification-scheduler/actions/workflows/automated-testing.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/automated-testing.yml)
 [![Mutation Testing](https://github.com/paulosalonso/notification-scheduler/actions/workflows/mutation-testing.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/mutation-testing.yml)
