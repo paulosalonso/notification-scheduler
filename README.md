@@ -173,7 +173,7 @@ A cada release é criada uma imagem Docker da versão no [Docker Hub](https://hu
 [![Heroku Homologation Environment Deploy](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-hom.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-hom.yml)
 [![Heroku Production Environment Deploy](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-prod.yml/badge.svg)](https://github.com/paulosalonso/notification-scheduler/actions/workflows/heroku-prod.yml)
 
-Para realizar um deploy no ambiente de homologação do Heroku basta criar uma pre-release ou uma branch no padrão "release-candidate-[0-9]+.[0-9]+.[0-9]+" (release-candidate-0.0.1, por exemplo).  
+O deploy no ambiente de homologação do Heroku é realizado ao criar uma pre-release.  
 O deploy no ambiente de produção do Heroku é realizado ao criar uma release.
 
 URL de homologação: https://notification-scheduler-hom.herokuapp.com

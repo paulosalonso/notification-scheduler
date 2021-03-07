@@ -31,8 +31,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Extracting branch name
-        run: echo "VERSION=$(git rev-parse --abbrev-ref HEAD | cut -c19-30)-SNAPSHOT" >> $GITHUB_ENV
+      - name: Extracting tag
+        run: echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Updating project version in pom.xml with branch-name
         run: |
