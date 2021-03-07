@@ -139,15 +139,19 @@ Swagger local (baseado no docker-compose): http://localhost:8080/swager-ui/index
 
 Os logs são gerenciados pelo [SLF4J](http://www.slf4j.org/), e utiliza o [Logback](http://logback.qos.ch/) como implementação.
 
-[comment]: <> (### Métricas)
+Localmente os logs podem ser visualizados pelo terminal, com o comando abaixo:
 
-[comment]: <> (A aplicação utiliza do [Spring Actuator]&#40;https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/&#41; para expor dados sobre sua execução.)
+> docker-compose logs notification-scheduler
 
-[comment]: <> (### Dashboard)
+### Métricas
 
-[comment]: <> (O docker-compose existente no projeto inclui o [Prometheus]&#40;https://prometheus.io/&#41; e o [Grafana]&#40;https://grafana.com/&#41;.)
+A aplicação utiliza do [Spring Actuator](https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/) para expor dados sobre sua execução.
 
-[comment]: <> (O Grafana é exposto na porta 3000 com usuário __admin__ e senha __123456__. Ao logar, será exibido um dashboard preconfigurado que consome os dados fornecidos pelo Actuator ao Prometheus.)
+### Dashboard
+
+O docker-compose existente no projeto inclui o [Prometheus](https://prometheus.io/) e o [Grafana](https://grafana.com/).  
+O Prometheus consome os dados fornecidos pela aplicação (actuator), e o Grafana consome esses mesmos dados do Prometheus.  
+O Grafana é exposto na porta 3000 com usuário __admin__ e senha __123456__. Ao logar, será exibido um dashboard com as métricas da aplicação.
 
 ## Integração Contínua
 
