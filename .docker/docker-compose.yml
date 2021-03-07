@@ -14,7 +14,7 @@ services:
         condition: service_healthy
 
   mysql:
-    image: mysql
+    image: mysql:8.0.23
     ports:
       - 3306:3306
     environment:
@@ -24,3 +24,25 @@ services:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 60s
       retries: 10
+
+  prometheus:
+    image: prom/prometheus:v2.25.0
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    image: grafana/grafana:7.4.3-ubuntu
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-clock-panel
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=123456
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/notification_scheduler_statistics.json
+    volumes:
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/provisioning:/etc/grafana/provisioning
